@@ -1,6 +1,7 @@
 package com.app.hospital.service;
 
 import com.app.hospital.entity.Patient;
+import com.app.hospital.exception.PatientNotFoundException;
 import com.app.hospital.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,8 @@ public class PatientServiceImplementation implements PatientService{
         Patient patient=new Patient();
         if(byId.isPresent()){
              patient = byId.get();
-        }
+        }else
+            throw new PatientNotFoundException("Patient doesn't found");
 
         return patient;
     }
