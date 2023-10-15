@@ -1,6 +1,7 @@
 package com.app.hospital.controller;
 
 import com.app.hospital.entity.Patient;
+import com.app.hospital.response.ResponseHandler;
 import com.app.hospital.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,11 @@ public class PatientController {
     }
 
     @GetMapping("/get/patient/{patientId}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable ("patientId") String patientId){
+    public ResponseEntity<Object> getPatientById(@PathVariable ("patientId") String patientId){
         Patient patientById = patientService.getPatientById(patientId);
-        return new ResponseEntity<>(patientById,HttpStatus.OK);
+        ResponseEntity<Object> objectResponseEntity = ResponseHandler.responseHandler("patient details are given as below: ",
+                HttpStatus.OK, patientById);
+        //return new ResponseEntity<>(patientById,HttpStatus.OK);
+        return objectResponseEntity;
     }
 }
